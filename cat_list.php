@@ -51,40 +51,39 @@ else
 <?php
 						if(isset($_SESSION['SESS_MEMBER_ID'])==true)
 						{
-							include('include/include_proj_add.php');
-							$AddProj = new ProjAdd;
-							$AddProj->AddProj();
+							include('include/include_cat_add.php');
+							$AddProj = new CatAdd;
+							$AddProj->AddCat();
 
-							$proj_query = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM projects WHERE project_owner= $owner");
-							if(mysqli_num_rows($proj_query) == 0)
+							$cat_query = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM category");
+							if(mysqli_num_rows($cat_query) == 0)
 							{
-								echo '<div class="message orange">To create a BOM-list (Bill Of Material) you have to first create a project. You will then be able to add your components to your project and automaticly create a BOM-list.</div>';
+								echo '<div class="message orange">empty message</div>';
 							}
 ?>
 
 					<?php
-					if(isset($_GET['proj_del']) && intval($_GET['proj_del'])==1)
+					if(isset($_GET['cat_del']) && intval($_GET['cat_del'])==1)
 					{
 					?>
 					<div class="message red">
-						Project Deleted
+						Category Deleted
 					</div>
 					<?php
 					}
 					?>
 					<form class="globalForms" method="post" action="">
 						<div class="textInput">
-							<label class="keyWord">Project name</label>
+							<label class="keyWord">Category name</label>
 							<div class="input"><input name="name" id="name" type="text" class="medium" /></div>
 						</div>
 						<div class="buttons">
 							<div class="input">
-								<button class="button green" name="submit" type="submit"><span class="icon medium save"></span> Add project</button>
+								<button class="button green" name="submit" type="submit"><span class="icon medium save"></span> Add Category</button>
 							</div>
 						</div>
 					</form>
 
-					<hr>
 <?php
 						}
 						else
@@ -93,41 +92,6 @@ else
 						}
 					?>
 
-					<table class="globalTables" cellpadding="0" cellspacing="0">
-						<thead>
-							<tr>
-								<th></th>
-								<th><a href="?by=name&order=<?php
-								if(isset($_GET['order'])){
-									$order = $_GET['order'];
-									if ($order == 'asc'){
-										echo 'desc';
-									}
-									else {
-										echo 'asc';
-									}
-								}
-								else {
-									echo 'desc';
-								}
-								?>">Name</a>
-								</th>
-								<th>Unique Components</th>
-								<th>Qty of components</th>
-								<th>Available Kits</th>
-								<th>Total cost</th>
-								<th>Public</th>
-								<th>Owner</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								include('include/include_proj_list_projets.php');
-								$ProjList = new Proj;
-								$ProjList->ProjList();
-							?>
-						</tbody>
-					</table>
 				</div>
 				<!-- END -->
 				<!-- Text outside the main content -->

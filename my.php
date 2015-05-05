@@ -6,6 +6,7 @@
 	$owner 	= 	$_SESSION['SESS_MEMBER_ID'];
 
 	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM members WHERE member_id = ".$owner."");
+	#$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM members");
 	$executesql = mysqli_fetch_assoc($GetDataComponent);
 ?>
 <!DOCTYPE HTML>

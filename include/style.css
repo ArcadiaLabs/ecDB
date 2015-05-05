@@ -206,7 +206,7 @@ div#content{background-color:#fff;position:relative;border-radius:6px;-moz-borde
 	div#projDesc h5{padding:10px 0px 0px 0px;font-weight:bold;}
 	div#projDesc ul{padding:0px 0px 10px 20px}
 
-div#copyText{width:980px;font-size:11px;margin:10px auto 30px auto;padding:0 10px 0 10px;color:#444;height:50px;overflow:auto;line-height:20px;}
+div#copyText{width:980px;font-size:11px;margin:10px auto 30px auto;padding:0 10px 0 10px;color:#444;height:80px;overflow:auto;line-height:20px;}
 	div#copyText div.leftBox{float:left;height:50px;}
 		div#copyText div.leftBox .stats{color:#7f7f7f;text-shadow:0 1px 0 #fff;}
 	div#copyText div.rightBox{float:right;text-align:right;}

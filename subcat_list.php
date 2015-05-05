@@ -2,6 +2,8 @@
 	require_once('include/login/auth.php');
 	require_once('include/debug.php');
 	require_once('include/mysql_connect.php');
+	
+	
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -51,40 +53,43 @@ else
 <?php
 						if(isset($_SESSION['SESS_MEMBER_ID'])==true)
 						{
-							include('include/include_proj_add.php');
-							$AddProj = new ProjAdd;
-							$AddProj->AddProj();
+							include('include/include_subcat_add.php');
+							$category_id = $_GET['category_id'];
+							$AddProj = new SubcatAdd;
+							$AddProj->AddSubcat();
 
-							$proj_query = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM projects WHERE project_owner= $owner");
-							if(mysqli_num_rows($proj_query) == 0)
+							$subcat_query = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM category_sub WHERE category_id = ".$category_id."");
+							if(mysqli_num_rows($subcat_query) == 0)
 							{
-								echo '<div class="message orange">To create a BOM-list (Bill Of Material) you have to first create a project. You will then be able to add your components to your project and automaticly create a BOM-list.</div>';
+								echo '<div class="message orange">empty message</div>';
 							}
 ?>
 
 					<?php
-					if(isset($_GET['proj_del']) && intval($_GET['proj_del'])==1)
+					if(isset($_GET['subcat_del']) && intval($_GET['subcat_del'])==1)
 					{
 					?>
 					<div class="message red">
-						Project Deleted
+						Sub-category Deleted
 					</div>
 					<?php
 					}
 					?>
 					<form class="globalForms" method="post" action="">
 						<div class="textInput">
-							<label class="keyWord">Project name</label>
-							<div class="input"><input name="name" id="name" type="text" class="medium" /></div>
+							<label class="keyWord">Sub-category name</label>
+							<div class="input">
+								<input name="subcategory" id="subcategory" type="text" class="medium" />
+							</div>
+								<input name="category_id" id="category_id" type="hidden" value="<?php echo $category_id;?>" />
 						</div>
 						<div class="buttons">
 							<div class="input">
-								<button class="button green" name="submit" type="submit"><span class="icon medium save"></span> Add project</button>
+								<button class="button green" name="submit" type="submit"><span class="icon medium save"></span> Add Sub-category</button>
 							</div>
 						</div>
 					</form>
 
-					<hr>
 <?php
 						}
 						else
@@ -93,41 +98,6 @@ else
 						}
 					?>
 
-					<table class="globalTables" cellpadding="0" cellspacing="0">
-						<thead>
-							<tr>
-								<th></th>
-								<th><a href="?by=name&order=<?php
-								if(isset($_GET['order'])){
-									$order = $_GET['order'];
-									if ($order == 'asc'){
-										echo 'desc';
-									}
-									else {
-										echo 'asc';
-									}
-								}
-								else {
-									echo 'desc';
-								}
-								?>">Name</a>
-								</th>
-								<th>Unique Components</th>
-								<th>Qty of components</th>
-								<th>Available Kits</th>
-								<th>Total cost</th>
-								<th>Public</th>
-								<th>Owner</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								include('include/include_proj_list_projets.php');
-								$ProjList = new Proj;
-								$ProjList->ProjList();
-							?>
-						</tbody>
-					</table>
 				</div>
 				<!-- END -->
 				<!-- Text outside the main content -->

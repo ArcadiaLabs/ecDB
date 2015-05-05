@@ -1,8 +1,8 @@
 <?php
-	$db_host = "DB_HOST";
-	$db_username = "DB_USER";
-	$db_pass = "DB_PASSWORD";
-	$db_name = "DB_NAME";
+	$db_host = "localhost";
+	$db_username = "ecdb";
+	$db_pass = "4VtL8bbdvqYLnQJt";
+	$db_name = "ecdb";
 
 	($GLOBALS["___mysqli_ston"] = mysqli_connect($db_host,  $db_username,  $db_pass)) or die ("Could not connect connect to MySQL Server");
 	((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE $db_name")) or die ("No database");

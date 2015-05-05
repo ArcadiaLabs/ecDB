@@ -8,6 +8,13 @@ ecDB is a small lightweight system to track your electronic components and proje
 how much and where it is.
 
 # Changes From the Original ecDB
+### v0.3
+* Changed behaviour to allow common components database for all users
+* Added option to add categories directly from the interface
+* Added option to add sub-categories directly from the interface
+* Added components total stock quantity and value to footer
+* Removed obsolete footer logo
+* Changed footer structure
 
 ### v0.2
 * Fixed mysql connection

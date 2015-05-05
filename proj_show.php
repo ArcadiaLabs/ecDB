@@ -88,7 +88,8 @@
 			{
 				if($qty > 0)
 				{
-					$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], "select id from data where owner = '".$_SESSION['SESS_MEMBER_ID']."' and name ='".$n."'");
+					#$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], "select id from data where owner = '".$_SESSION['SESS_MEMBER_ID']."' and name ='".$n."'");
+					$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], "select id from data where name ='".$n."'");
 					if(mysqli_num_rows($sql_exec)  > 0)
 					{
 						$showDetails = mysqli_fetch_array($sql_exec);

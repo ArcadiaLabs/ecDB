@@ -6,15 +6,16 @@
 	$owner 	= 	$_SESSION['SESS_MEMBER_ID'];
 	$id 	= 	(int)$_GET['view'];
 
-	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data WHERE id = ".$id." AND owner = ".$owner."");
+	#$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data WHERE id = ".$id." AND owner = ".$owner."");
+	$GetDataComponent = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT * FROM data WHERE id = ".$id."");
 	$executesql = mysqli_fetch_assoc($GetDataComponent);
 
 	$GetPersonal = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT currency, measurement FROM members WHERE member_id = ".$owner."");
 	$personal = mysqli_fetch_assoc($GetPersonal);
 
-	if ($executesql['owner'] !== $owner) {
-		header("Location: error.php?id=1");
-	}
+	#if ($executesql['owner'] !== $owner) {
+	#	header("Location: error.php?id=1");
+	#}
 
 
 	$head_cat_id = $executesql['category'];
