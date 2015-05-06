@@ -26,6 +26,7 @@ INSERT INTO `admin_options` (`admin_key`, `admin_value`) VALUES ('register_tab_s
 --INSERT INTO `admin_options` (`admin_key`, `admin_value`) VALUES ('pubcomponents_tab_show', '0');
 -- donation tab, if your running a public site, maybe leave this on
 INSERT INTO `admin_options` (`admin_key`, `admin_value`) VALUES ('donate_tab_show', '1');
+INSERT INTO `admin_options` (`admin_key`, `admin_value`) VALUES ('common_db', '0');
 
 alter table `projects` add column `project_public` tinyint(1) NOT NULL DEFAULT 0;
 alter table `projects` add column `project_url` varchar(128) NULL;

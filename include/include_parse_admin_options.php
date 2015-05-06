@@ -10,6 +10,7 @@
 
 	$opt_register_tab_show = 1;
 	$opt_donate_tab_show = 1;
+	$opt_common_db = 0;
 
 	while ($row = mysqli_fetch_assoc($result))
 	{
@@ -32,6 +33,10 @@
 		if($row['admin_key'] == 'donate_tab_show')
 		{
 			$opt_donate_tab_show = intval($row['admin_value']);
+		}
+		if($row['admin_key'] == 'common_db')
+		{
+			$opt_common_db = intval($row['admin_value']);
 		}
 	}
 ?>

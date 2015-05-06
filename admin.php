@@ -17,6 +17,7 @@
 	$executesql['opt_blog_tab_url'] = $opt_blog_tab_url;
 	$executesql['opt_register_tab_show'] = $opt_register_tab_show;
 	$executesql['opt_donate_tab_show'] = $opt_donate_tab_show;
+	$executesql['opt_common_db'] = $opt_common_db;
 
 ?>
 <!DOCTYPE HTML>
@@ -78,6 +79,37 @@
 							</tr>
 						</thead>
 						<tbody>
+						<tr><td colspan='2' class='boldText'>Behaviour</td></tr>
+						<tr>
+							<td>&nbsp;&nbsp;</td>
+							<td class="boldText">
+								Common database for all users
+							</td>
+							<td>
+								<select name="opt_common_db">
+									<option value="0"
+									<?php
+										if(!isset($_POST['submit']) && $executesql['opt_common_db'] == '0') {
+											echo 'selected';
+										}
+										if(isset($_POST['submit']) && $_POST['opt_common_db'] == '0') {
+											echo 'selected';
+										}
+									?>
+									>No</option>
+									<option value="1"
+									<?php
+										if(!isset($_POST['submit']) && $executesql['opt_common_db'] == '1') {
+											echo 'selected';
+										}
+										if(isset($_POST['submit']) && $_POST['opt_common_db'] == '1') {
+											echo 'selected';
+										}
+									?>
+									>Yes</option>
+								</select>
+							</td>
+						</tr>
 						<tr><td colspan='2' class='boldText'>The public Menu</td></tr>
 						<tr>
 							<td>&nbsp;&nbsp;</td>

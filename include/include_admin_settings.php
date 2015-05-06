@@ -31,6 +31,10 @@ class Admin {
 				{
 					$opt_donate_tab_show = intval($row['admin_value']);
 				}
+				if($row['admin_key'] == 'common_db')
+				{
+					$opt_common_db = intval($row['admin_value']);
+				}
 			}
 
 			$opt_blog_tab_show = intval(strip_tags( mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_POST['opt_blog_tab_show'])));
@@ -39,6 +43,8 @@ class Admin {
 
 			$opt_register_tab_show = intval(strip_tags( mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_POST['opt_register_tab_show'])));
 			$opt_donate_tab_show = intval(strip_tags( mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_POST['opt_donate_tab_show'])));
+			
+			$opt_common_db = intval(strip_tags( mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_POST['opt_common_db'])));
 
 			$executesql = array();
 			$executesql['opt_blog_tab_show'] = $opt_blog_tab_show;
@@ -46,6 +52,7 @@ class Admin {
 			$executesql['opt_blog_tab_url'] = $opt_blog_tab_url;
 			$executesql['opt_register_tab_show'] = $opt_register_tab_show;
 			$executesql['opt_donate_tab_show'] = $opt_donate_tab_show;
+			$executesql['opt_common_db'] = $opt_common_db;
 
 			if ($opt_blog_tab_title == '')
 			{
@@ -66,6 +73,7 @@ class Admin {
 				$sql="UPDATE admin_options SET admin_value = '".$opt_blog_tab_url."' WHERE admin_key = 'blog_tab_url'"; $sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 				$sql="UPDATE admin_options SET admin_value = '".$opt_register_tab_show."' WHERE admin_key = 'register_tab_show'"; $sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 				$sql="UPDATE admin_options SET admin_value = '".$opt_donate_tab_show."' WHERE admin_key = 'donate_tab_show'"; $sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
+				$sql="UPDATE admin_options SET admin_value = '".$opt_common_db."' WHERE admin_key = 'common_db'"; $sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $sql);
 
 				echo '<div class="message green center">';
 				echo 'Settings updated!';
