@@ -104,7 +104,7 @@
 						<?php
 							include('include/include.php');
 							$Category = new ShowComponents;
-							$Category->Category();
+							$Category->Category($opt_common_db);
 						?>
 					</tbody>
 				</table>

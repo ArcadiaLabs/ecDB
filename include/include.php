@@ -1,11 +1,14 @@
 <?php
 class ShowComponents {
-	public function Index() {
+	public function Index($opt_common_db) {
 
 		require_once('login/auth.php');
 		include('mysql_connect.php');
 
 		$owner = $_SESSION['SESS_MEMBER_ID'];
+		
+		if($opt_common_db == 1){ $common_db_string = ""; }
+		else{ $common_db_string = "WHERE owner = ".$owner." "; }
 
 		if(isset($_GET['by'])) {
 
@@ -20,21 +23,17 @@ class ShowComponents {
 			}
 
 			if($by == 'price' or $by == 'pins' or $by == 'quantity') {
-				#$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by ".$by." +0 ".$order."";
-				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ORDER by ".$by." +0 ".$order."";
+				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ".$common_db_string."ORDER by ".$by." +0 ".$order."";
 			}
 			elseif($by == 'name' or $by == 'category' or $by =='package' or $by =='smd') {
-				#$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by ".$by." ".$order."";
-				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE ORDER by ".$by." ".$order."";
+				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ".$common_db_string."ORDER by ".$by." ".$order."";
 			}
 			else {
-				#$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by name ASC";
-				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ORDER by name ASC";
+				$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ".$common_db_string."ORDER by name ASC";
 			}
 		}
 		else {
-			#$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data WHERE owner = ".$owner." ORDER by name ASC";
-			$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ORDER by name ASC";
+			$GetDataComponentsAll = "SELECT id, name, category, package, pins, datasheet, url1, smd, price, quantity, comment, bin_location FROM data ".$common_db_string."ORDER by name ASC";
 		}
 
 		$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $GetDataComponentsAll);
@@ -163,12 +162,14 @@ class ShowComponents {
 			echo "</tr>";
 		}
 	}
-	public function Category() {
+	public function Category($opt_common_db) {
 
 		require_once('include/login/auth.php');
 		include('include/mysql_connect.php');
 
 		$owner = $_SESSION['SESS_MEMBER_ID'];
+		if($opt_common_db == 1){ $common_db_string = ""; }
+		else{ $common_db_string = "AND owner = ".$owner." "; }
 
 		if(isset($_GET['cat']))
 		{
@@ -190,21 +191,18 @@ class ShowComponents {
 				}
 
 				if($by == 'price' or $by == 'pins' or $by == 'quantity') {
-					#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." AND owner = ".$owner." ORDER by ".$by." +0 ".$order."";
-					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ORDER by ".$by." +0 ".$order."";
+					
+					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ".$common_db_string."ORDER by ".$by." +0 ".$order."";
 				}
 				elseif($by == 'name' or $by == 'category' or $by =='package' or $by =='smd') {
-					#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." AND owner = ".$owner." ORDER by ".$by." ".$order."";
-					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ORDER by ".$by." ".$order."";
+					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ".$common_db_string."ORDER by ".$by." ".$order."";
 				}
 				else {
-					#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." AND owner = ".$owner." ORDER by name ASC";
-					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ORDER by name ASC";
+					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ".$common_db_string."ORDER by name ASC";
 				}
 			}
 			else {
-				#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." AND owner = ".$owner." ORDER by name ASC";
-				$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ORDER by name ASC";
+				$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.category_id = ".$cat." ".$common_db_string."ORDER by name ASC";
 			}
 
 			$sql_exec_component = mysqli_query($GLOBALS["___mysqli_ston"], $ComponentsCategory);
@@ -357,21 +355,17 @@ class ShowComponents {
 				}
 
 				if($by == 'price' or $by == 'pins' or $by == 'quantity') {
-					#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." AND owner = ".$owner." ORDER by ".$by." +0 ".$order."";
-					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ORDER by ".$by." +0 ".$order."";
+					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ".$common_db_string."ORDER by ".$by." +0 ".$order."";
 				}
 				elseif($by == 'name' or $by == 'category' or $by =='package' or $by =='smd') {
-					#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." AND owner = ".$owner." ORDER by ".$by." ".$order."";
-					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ORDER by ".$by." ".$order."";
+					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ".$common_db_string."ORDER by ".$by." ".$order."";
 				}
 				else {
-					#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." AND owner = ".$owner." ORDER by name ASC";
-					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ORDER by name ASC";
+					$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ".$common_db_string."ORDER by name ASC";
 				}
 			}
 			else {
-				#$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." AND owner = ".$owner." ORDER by name ASC";
-				$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ORDER by name ASC";
+				$ComponentsCategory = "SELECT d.id, d.name, d.category, d.package, d.pins, d.datasheet, d.url1, d.smd, d.price, d.quantity, d.comment, d.bin_location FROM data d, category_sub c WHERE d.category = c.id and c.id = ".$subcat." ".$common_db_string."ORDER by name ASC";
 			}
 
 			$sql_exec_component = mysqli_query($GLOBALS["___mysqli_ston"], $ComponentsCategory);
@@ -498,7 +492,7 @@ class ShowComponents {
 		}
 	}
 
-	public function Search()
+	public function Search($opt_common_db)
 	{
 
 		if(isset($_GET['q']))
@@ -507,6 +501,8 @@ class ShowComponents {
 			include('include/mysql_connect.php');
 
 			$owner = $_SESSION['SESS_MEMBER_ID'];
+			if($opt_common_db == 1){ $common_db_string = ""; }
+			else{ $common_db_string = "AND owner = ".$owner." "; }
 
 			$query = mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $_GET['q']);
 			$query1 = strtoupper($query);
@@ -537,23 +533,19 @@ class ShowComponents {
 
 					if($by == 'price' or $by == 'pins' or $by == 'quantity')
 					{
-						#$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by $by +0 $order";
-						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ORDER by $by +0 $order";
+						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ".$common_db_string."ORDER by $by +0 $order";
 					}
 					elseif($by == 'name' or $by == 'category' or $by =='package' or $by =='smd' or $by =='manufacturer') {
-						#$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by $by $order";
-						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ORDER by $by $order";
+						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ".$common_db_string."ORDER by $by $order";
 					}
 					else
 					{
-						#$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by name ASC";
-						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ORDER by name ASC";
+						$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ".$common_db_string."ORDER by name ASC";
 					}
 				}
 				else
 				{
-					#$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') AND owner = $owner ORDER by name ASC";
-					$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ORDER by name ASC";
+					$SearchQuery = "SELECT * FROM data WHERE (name LIKE'%$find%' OR package LIKE'%$find%' OR manufacturer LIKE'%$find%' OR pins LIKE'%$find%' OR location LIKE'%$find%' OR comment LIKE'%$find%') ".$common_db_string."ORDER by name ASC";
 				}
 
 				$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $SearchQuery);

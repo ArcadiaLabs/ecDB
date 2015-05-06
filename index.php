@@ -172,7 +172,7 @@
 						include('include/include.php');
 
 						$Index = new ShowComponents;
-						$Index->Index();
+						$Index->Index($opt_common_db);
 					?>
 					</tbody>
 				</table>
