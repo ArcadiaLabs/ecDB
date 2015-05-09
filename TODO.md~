@@ -11,6 +11,7 @@
 - export pdf / xls
 
 **Users**
+- admin : liste des users, 'IsAdmin', 'Delete' 
 - admin : base commune / privée
 - boulons (credits)
 

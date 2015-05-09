@@ -15,8 +15,6 @@ how much and where it is.
 * Added components total stock quantity and value to footer
 * Removed obsolete footer logo
 * Changed footer structure
-* Added user.php admin page
-* Added users list with setadmin and delete functions
 
 ### v0.2
 * Fixed mysql connection

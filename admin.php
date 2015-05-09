@@ -52,14 +52,19 @@
 							User added succesfully.
 						</div>
 						<?php } ?>
-
-						<div class="buttons">
-							<div class="input">
-								<form action="register.php" method="get">
-									<button class="button green" type="submit"><span class="icon medium pencil"></span> Add New User</button>
-								</form>
-							</div>
-						</div>
+						<table>
+							<tr>
+								<td>
+									<div class="buttons">
+										<div class="input">
+											<form action="users.php" method="get">
+												<button class="button green" type="submit"><span class="icon medium user"></span> Users</button>
+											</form>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</table>
 					</ul>
 				</div>
 
