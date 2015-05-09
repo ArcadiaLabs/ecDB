@@ -21,27 +21,31 @@
 			projects.</br>
 
 			<?php 
-			$total_price = 0;
-			$total_quantity = 0;
-			$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT price, quantity FROM data");
-			while($showDetails = mysqli_fetch_array($sql_exec))
+			if($_SESSION['SESS_IS_ADMIN'] == 1)
 			{
-				$total_price+=$showDetails['price']*$showDetails['quantity'];
-				$total_quantity+=$showDetails['quantity'];
+				$total_price = 0;
+				$total_quantity = 0;
+				$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT price, quantity FROM data");
+				while($showDetails = mysqli_fetch_array($sql_exec))
+				{
+					$total_price+=$showDetails['price']*$showDetails['quantity'];
+					$total_quantity+=$showDetails['quantity'];
+				}
+				$member_id = $_SESSION['SESS_MEMBER_ID'];
+				$currency_sql = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT currency FROM members WHERE member_id = ".$member_id."");
+				$currency = mysqli_fetch_array($currency_sql);
+				?>
+				Stock : 
+				<span class="boldText">
+				<?php echo $total_quantity; ?>
+				</span>
+				 components for 
+				<span class="boldText">
+				<?php echo $total_price; ?> 
+				</span>
+				<?php echo $currency['currency']; 
 			}
-			$member_id = $_SESSION['SESS_MEMBER_ID'];
-			$currency_sql = mysqli_query($GLOBALS["___mysqli_ston"], "SELECT currency FROM members WHERE member_id = ".$member_id."");
-			$currency = mysqli_fetch_array($currency_sql);
 			?>
-			Stock : 
-			<span class="boldText">
-			<?php echo $total_quantity; ?>
-			</span>
-			 components for 
-			<span class="boldText">
-			<?php echo $total_price; ?> 
-			</span>
-			<?php echo $currency['currency']; ?>
         </div>
 <?php } ?>
 		</br>
