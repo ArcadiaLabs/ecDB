@@ -105,7 +105,7 @@
 								Admin
 							</th>
 							<th>
-								Components
+								Components added
 							</th>
 							<th>
 								Projects
