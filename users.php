@@ -15,8 +15,21 @@
 		$qry_setadmin = "UPDATE members SET admin = '".$_GET['admin']."' WHERE member_id = '".$_GET['setadmin']."'";
 		$sql_exec_setadmin = mysqli_query($GLOBALS["___mysqli_ston"], $qry_setadmin);
 		$message = '
-		<div class="message blue">
+		<div class="message blue center">
 			User modified successfully.
+		</div>';
+	}
+	
+	if(isset($_GET['userdeleteconfirm'])) {
+		$message = '
+		<div class="message blue center">
+			Do you really want to delete this user ?<br><br>
+			<table>
+				<tr>
+					<td><a href="?userdelete='.$_GET['userdeleteconfirm'].'"><button class="button green" type="submit"><span class="icon medium checkmark"></span> Yes</button></a></td>
+					<td><a href="users.php"><button class="button red" type="submit"><span class="icon medium roundMinus"></span> No</button></a></td>
+				</tr>
+			</table>
 		</div>';
 	}
 	
@@ -24,7 +37,7 @@
 		$qry_userdelete = "DELETE FROM members WHERE member_id = '".$_GET['userdelete']."'";
 		$sql_exec_userdelete = mysqli_query($GLOBALS["___mysqli_ston"], $qry_userdelete);
 		$message = '
-		<div class="message blue">
+		<div class="message blue center">
 			User deleted successfully.
 		</div>';
 	}
@@ -78,6 +91,8 @@
 			<?php
 			$qry = "SELECT * FROM members ORDER by login ASC";
 			$sql_exec = mysqli_query($GLOBALS["___mysqli_ston"], $qry);
+			
+			
 			echo '
 			<div>
 			<table class="globalTables" cellpadding="0" cellspacing="0">
@@ -88,6 +103,12 @@
 							</th>
 							<th>
 								Admin
+							</th>
+							<th>
+								Components
+							</th>
+							<th>
+								Projects
 							</th>
 							<th>
 								Delete
@@ -110,7 +131,18 @@
 					echo '	<td><a href=?setadmin='.$user['member_id'].'&admin=0><span class="icon medium checkboxChecked"></span></a></td>';
 					
 				}
-							echo '<td><a href=?userdelete='.$user['member_id'].'><span class="icon medium trash"></span></a></td>';
+				
+				$qry_count_components = "SELECT * FROM data WHERE owner = '".$user['member_id']."'";
+				$sql_count_components = mysqli_query($GLOBALS["___mysqli_ston"], $qry_count_components);
+				$num_components = mysqli_num_rows($sql_count_components);
+				echo '		<td>'.$num_components.'</td>';
+				
+				$qry_count_projects = "SELECT * FROM projects WHERE project_owner = '".$user['member_id']."'";
+				$sql_count_projects = mysqli_query($GLOBALS["___mysqli_ston"], $qry_count_projects);
+				$num_projects = mysqli_num_rows($sql_count_projects);
+				echo '		<td>'.$num_projects.'</td>';
+				
+				echo '		<td><a href=?userdeleteconfirm='.$user['member_id'].'><span class="icon medium trash"></span></a></td>';
 				echo '</tr>';
 			}
 			echo '
