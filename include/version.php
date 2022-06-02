@@ -1,3 +1,3 @@
 <?php
-	$ECDB_VERSION='0.3';
+	$ECDB_VERSION='0.4';
 ?>

@@ -49,7 +49,7 @@
         </div>
 <?php } ?>
 		</br>
-		<div>© 2010 - <?php echo date('Y'); ?> ecDB - Created by <a href="http://nilsf.se">Nils Fredriksson</a> - <a href="contact.php">Contact us</a> - <a href="terms.php">Terms & Privacy</a> - <a href="about.php">About</a></div>
+		<div>© 2010 - <?php echo date('Y'); ?> ecDB - Created by <a href="http://nilsf.se">Nils Fredriksson</a>, maintained by <a href="https://arcadia-labs.com">Stéphane Guerreau</a> - <a href="contact.php">Contact us</a> - <a href="terms.php">Terms & Privacy</a> - <a href="about.php">About</a></div>
     </div>
     <div class="rightBox">
         <!--Design by <a href="http://www.buildlog.eu"><span class="blIcon"></span></a>-->
