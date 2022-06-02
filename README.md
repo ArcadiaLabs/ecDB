@@ -8,6 +8,10 @@ ecDB is a small lightweight system to track your electronic components and proje
 how much and where it is.
 
 # Changes From the Original ecDB
+### v0.4
+* Updated for php7
+* Updated footer
+
 ### v0.3
 * Changed behaviour to allow common components database for all users
 * Added option to add categories directly from the interface
