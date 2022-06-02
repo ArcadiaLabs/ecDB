@@ -1,6 +1,6 @@
 README
 ====
-Welcome, this is a fork of Nils' original ecDB project with a great many changes and fixes.
+Welcome, this is a fork of Nils' original ecDB project with many changes and fixes.
 
 # What is ecDB
 
